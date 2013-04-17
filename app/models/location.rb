@@ -1,7 +1,7 @@
 class Location < ActiveRecord::Base
 
-	attr_accessible :latitude, :longitude, :country, :city, :address
+	attr_accessible :latitude, :longitude, :country, :city, :address, :lfitem_id
 	validates :latitude, :longitude, :presence => true
-	has_one :item, :foreign_key => :location_id
+	belongs_to :item
 
 end

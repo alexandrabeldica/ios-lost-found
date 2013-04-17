@@ -7,7 +7,6 @@ class CreateLfitems < ActiveRecord::Migration
       t.string :reward
       t.string :photo_path
       t.integer :category_id
-      t.integer :location_id
 
       t.timestamps
     end

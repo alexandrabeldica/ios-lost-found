@@ -6,6 +6,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :country
       t.string :city
       t.text :address
+      t.integer :lfitem_id
 
       t.timestamps
     end
