@@ -12,7 +12,9 @@ class LfitemController < ApplicationController
 			photo_name = item_id.to_s + ".jpg"
 
 			obj = bucket.objects[photo_name]
-			obj.write(photo)
+			obj.write(photo, :acl => :public_read)
+
+			photo_name = obj.public_url
 		end
 
 		return photo_name
