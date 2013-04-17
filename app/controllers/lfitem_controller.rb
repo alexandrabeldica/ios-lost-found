@@ -95,6 +95,7 @@ class LfitemController < ApplicationController
 			total_item["reward"] = item.reward
 			total_item["photo_path"] = item.photo_path
 			total_item["category_id"] = item.category_id
+			total_item["contact"] = item.contact
 			total_item["latitude"] = item.location.latitude
 			total_item["longitude"] = item.location.longitude
 			total_item["country"] = item.location.country
@@ -142,6 +143,7 @@ class LfitemController < ApplicationController
 				total_item["reward"] = item.reward
 				total_item["photo_path"] = item.photo_path
 				total_item["category_id"] = item.category_id
+				total_item["contact"] = item.contact
 				total_item["latitude"] = item.location.latitude
 				total_item["longitude"] = item.location.longitude
 				total_item["country"] = item.location.country
