@@ -3,5 +3,4 @@ IOSLostFound::Application.routes.draw do
   match '/categories', :to => 'lfitem#get_categories'
   match '/items/:id_category/:lftype', :to => 'lfitem#get_items'
   match '/item/:id', :to => 'lfitem#get_item'
-  match '/save_test', :to => 'lfitem#save_photo2'
 end

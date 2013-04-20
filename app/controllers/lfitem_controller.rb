@@ -2,37 +2,6 @@ class LfitemController < ApplicationController
 
 	require 'json'
 
-	def save_photo2
-
-		photo = params[:photo]
-
-		s3 = AWS::S3.new
-		bucket = s3.buckets['ios-lost-found']
-		photo_name = ""
-
-		if bucket.exists?
-			photo_name = "poza.jpg"
-
-			obj = bucket.objects[photo_name]
-			logger.info photo
-			file = File.open(photo.tempfile.to_path.to_s)
-			logger.info photo.tempfile.to_path.to_s
-			logger.info file
-			obj.write(file, :acl => :public_read)
-
-			photo_name = obj.public_url
-		end
-
-		respond_to do |format|
-
-			format.json {
-				render json: {:path => photo_name}, status: :ok
-			}
-
-		end
-
-	end
-
 	def save_photo(photo, item_id)
 
 		s3 = AWS::S3.new
@@ -43,7 +12,8 @@ class LfitemController < ApplicationController
 			photo_name = item_id.to_s + ".jpg"
 
 			obj = bucket.objects[photo_name]
-			obj.write(photo, :acl => :public_read)
+			file = File.open(photo.tempfile.to_path.to_s)
+			obj.write(file, :acl => :public_read)
 
 			photo_name = obj.public_url
 		end
