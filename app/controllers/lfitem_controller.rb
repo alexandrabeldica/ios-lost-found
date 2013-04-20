@@ -15,7 +15,10 @@ class LfitemController < ApplicationController
 
 			obj = bucket.objects[photo_name]
 			logger.info photo
-			obj.write(:data => photo, :acl => :public_read)
+			file = File.open(photo.tempfile.to_path.to_s)
+			logger.info photo.tempfile.to_path.to_s
+			logger.info file
+			obj.write(file, :acl => :public_read)
 
 			photo_name = obj.public_url
 		end
