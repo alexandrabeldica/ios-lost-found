@@ -12,13 +12,16 @@ class LfitemController < ApplicationController
 			photo_name = item_id.to_s + ".jpg"
 
 			obj = bucket.objects[photo_name]
+			logger.info photo_name
 			file = File.open(photo.tempfile.to_path.to_s)
+			logger.info file
 			obj.write(file, :acl => :public_read)
 
 			photo_name = obj.public_url
 		end
 
 		return photo_name
+		logger.info photo_name
 
 	end
 
@@ -29,25 +32,24 @@ class LfitemController < ApplicationController
 
 		item.location = location
 
+		logger.info item
+		logger.info location
+
 		respond_to do |format|
 
+			#save photo on amazon S3 and save photo name
+			logger.info params[:photo]
+			item.photo_path = save_photo(params[:photo], item.id)
+
 			if item.save
-
-				#save photo on amazon S3 and save photo name
-				item.photo_path = save_photo(params[:photo], item.id)
-
-				if item.save
-					format.json {
-						render json: {:message => "Item created"}, status: :created
-					}
-				else
-					format.json {
-						render json: {:error => item.errors}, status: :unprocessable_entity
-					}
-				end
-			else
+				logger.info item
 				format.json {
-					render json: {:error => location.errors}, status: :unprocessable_entity
+					render json: {:message => "Item created"}, status: :created
+				}
+			else
+				logger.info item
+				format.json {
+					render json: {:error => item.errors}, status: :unprocessable_entity
 				}
 			end
 
