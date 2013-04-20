@@ -14,7 +14,7 @@ class LfitemController < ApplicationController
 			photo_name = "poza.jpg"
 
 			obj = bucket.objects[photo_name]
-			logger.debug photo
+			logger.info photo
 			obj.write(:data => photo, :acl => :public_read)
 
 			photo_name = obj.public_url
