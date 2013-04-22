@@ -107,7 +107,7 @@ class LfitemController < ApplicationController
 			if ok_type
 				if items.count > 0
 				format.json {
-					render json: total_items, status: :ok
+					render json: {:results =>total_items, :message => "Found items"}, status: :ok
 				}
 				else
 					format.json {
